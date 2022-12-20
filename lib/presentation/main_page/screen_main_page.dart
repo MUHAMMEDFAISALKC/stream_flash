@@ -6,6 +6,7 @@ import 'package:stream_flash/presentation/home/screen_home.dart';
 import 'package:stream_flash/presentation/main_page/widgets/bottom_nav.dart';
 import 'package:stream_flash/presentation/new_and_hot/screen_newandhot.dart';
 import 'package:stream_flash/presentation/search/screen_search.dart';
+import 'package:stream_flash/presentation/widgets/app_bar_common.dart';
 
 class ScreenMainPage extends StatelessWidget {
   ScreenMainPage({super.key});
@@ -21,25 +22,6 @@ class ScreenMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        shadowColor: Colors.white,
-        title: Padding(
-            padding: const EdgeInsets.only(bottom: 0.0),
-            child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Image.asset(
-                'assets/images/StreamFlash.png',
-                //width: 35,
-                height: 40,
-                fit: BoxFit.contain,
-                alignment: Alignment.center,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 70),
-                child: Text('Stream flash'.toUpperCase()),
-              ),
-            ])),
-        backgroundColor: Colors.black,
-      ),
       backgroundColor: backgroundcolor,
       body: ValueListenableBuilder(
           valueListenable: selectedIndexNotifier,

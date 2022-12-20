@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:stream_flash/core/colors/colors.dart';
 import 'package:stream_flash/presentation/downloads/screen_downloads.dart';
 import 'package:stream_flash/presentation/fast_laughs/screen_fastlaughs.dart';
@@ -23,9 +24,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Stream Flash',
         theme: ThemeData(
-            primarySwatch: Colors.purple,
+            primarySwatch: Colors.blue,
             //backgroundColor: backgroundcolor,
             scaffoldBackgroundColor: backgroundcolor,
+            fontFamily: GoogleFonts.montserrat().fontFamily,
+            iconTheme: IconThemeData(color: iconcolor),
             textTheme: const TextTheme(
                 bodyText1: TextStyle(color: textcolor),
                 bodyText2: TextStyle(color: textcolor))),
