@@ -106,6 +106,7 @@ class Section2 extends StatelessWidget {
               Center(
                   child: CircleAvatar(
                 radius: screanDime.width * 0.4,
+                //maxRadius: 200,
                 backgroundColor: Color.fromARGB(115, 134, 130, 130),
               )),
               DownloadImagesWidget(
