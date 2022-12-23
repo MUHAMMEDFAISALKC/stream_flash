@@ -16,6 +16,7 @@ class VideoListItem extends StatelessWidget {
       Container(
         //color: Colors.accents[index % Colors.accents.length]
         decoration: BoxDecoration(
+            color: Colors.accents[index % Colors.accents.length],
             image: DecorationImage(
                 image: AssetImage('assets/images/lordOfRings.jpg'))),
       ),
