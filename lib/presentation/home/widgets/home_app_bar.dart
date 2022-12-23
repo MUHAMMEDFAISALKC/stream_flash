@@ -13,7 +13,7 @@ class HomeAppBarWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 20.0, right: 20, top: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(
             'assets/images/StreamFlash.png',
@@ -22,25 +22,25 @@ class HomeAppBarWidget extends StatelessWidget {
             fit: BoxFit.contain,
             alignment: Alignment.center,
           ),
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.only(left: 70),
-            child: Text(
-              title,
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w900
-                  //fontFamily: GoogleFonts.monoton().fontFamily
-                  ),
-            ),
-          )),
-          Icon(
-            Icons.cast,
+          Text(
+            title,
+            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w900
+                //fontFamily: GoogleFonts.monoton().fontFamily
+                ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 40.0),
-            child: Image.asset(
-              'assets/images/whowatch.jpg',
-              height: 25,
-            ),
+          Row(
+            children: [
+              Icon(
+                Icons.cast,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 40.0),
+                child: Image.asset(
+                  'assets/images/whowatch.jpg',
+                  height: 25,
+                ),
+              ),
+            ],
           )
         ],
       ),
