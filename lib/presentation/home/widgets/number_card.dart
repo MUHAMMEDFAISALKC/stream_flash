@@ -26,7 +26,7 @@ class NumberCard extends StatelessWidget {
               height: 140,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('images/lordOfRings.jpg'))),
+                      image: AssetImage('assets/images/lordOfRings.jpg'))),
               //color: Colors.accents[index % Colors.accents.length]
               // decoration: BoxDecoration(
               //     image: DecorationImage(

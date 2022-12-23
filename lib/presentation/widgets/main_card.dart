@@ -11,7 +11,8 @@ class MainCard extends StatelessWidget {
       width: 100,
       height: 140,
       decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('images/spiderman.jpg'))),
+          image: DecorationImage(
+              image: AssetImage('assets/images/spiderman.jpg'))),
       //color: Colors.accents[index % Colors.accents.length]
       // decoration: BoxDecoration(
       //     image: DecorationImage(

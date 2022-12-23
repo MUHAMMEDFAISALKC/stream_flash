@@ -17,8 +17,8 @@ class BackgroundCard extends StatelessWidget {
 
           //color: Color.fromARGB(255, 6, 103, 120),
           decoration: BoxDecoration(
-              image:
-                  DecorationImage(image: AssetImage('images/lordOfRings.jpg'))),
+              image: DecorationImage(
+                  image: AssetImage('assets/images/lordOfRings.jpg'))),
         ),
         Positioned(
           bottom: 0,
