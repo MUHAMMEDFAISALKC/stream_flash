@@ -13,7 +13,12 @@ class VideoListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(alignment: AlignmentDirectional.bottomCenter, children: [
-      Container(color: Colors.accents[index % Colors.accents.length]),
+      Container(
+        //color: Colors.accents[index % Colors.accents.length]
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/lordOfRings.jpg'))),
+      ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -37,8 +42,9 @@ class VideoListItem extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        'https://www.themoviedb.org/t/p/w440_and_h660_face/ekZobS8isE6mA53RAiGDG93hBxL.jpg'),
+                    backgroundImage: AssetImage('assets/images/spiderman.jpg'),
+                    // backgroundImage: NetworkImage(
+                    //     'https://www.themoviedb.org/t/p/w440_and_h660_face/ekZobS8isE6mA53RAiGDG93hBxL.jpg'),
                   ),
                 ),
                 VideoActionsWidget(
