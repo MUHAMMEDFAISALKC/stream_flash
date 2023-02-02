@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -62,8 +64,25 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchMovie>((event, emit) async {
       // Tget search api
       final _result = await _searchService.searchMovies(searchQuery: event.movieQuery);
+      print(_result.toString());
       print(_result);
+      final _emitState = _result.fold(
+        (MainFailure sf) {
+          emit(SearchState(
+            searchResultList: [], 
+            idleList: state.idleList, 
+            isLoading: false, 
+            isError: true));
+        }, 
+        (SearchResult sList) {
+          return SearchState(
+            searchResultList: sList.results!, 
+            idleList: state.idleList, 
+            isLoading: false, 
+            isError: false);
+        } );
       // show ui
+      emit(_emitState!);
     });
   }
 }

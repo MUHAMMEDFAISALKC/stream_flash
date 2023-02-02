@@ -15,17 +15,17 @@ class SearchImpl implements SearchService {
     // TODO: implement searchMovies
     try {
       final Response response =
-          await Dio(BaseOptions()).get(ApiEndPoint.search, queryParameters: {'query': searchMovies});
+          await Dio(BaseOptions()).get(ApiEndPoint.search, queryParameters: {'query': searchQuery});
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = SearchResult.fromJson(response.data);
        
-        print(response.data['results']);
+        //print(response.data['results']);
         return Right(result);
       } else {
         return Left(MainFailure.ServerFailure());
       }
     } catch (e) {
-      print(e.toString());
+      //print(e.toString());
       return Left(MainFailure.ClientFailure());
     }
   }

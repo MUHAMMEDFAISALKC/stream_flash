@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stream_flash/application/search/search_bloc.dart';
 import 'package:stream_flash/core/constants.dart';
+import 'package:stream_flash/domain/core/debounce/debounce.dart';
 import 'package:stream_flash/presentation/search/widgets/search_idle.dart';
 import 'package:stream_flash/presentation/search/widgets/search_result.dart';
 import 'package:stream_flash/presentation/widgets/app_bar_common.dart';
@@ -11,16 +12,13 @@ class ScreenSearch extends StatelessWidget {
   ScreenSearch({super.key});
 
   final searchTextController = TextEditingController();
-  final bottomContents = [
-    SearchIdle(),
-    SearchResultWidget(),
-  ];
 
-  ValueNotifier<Widget> bottomDisplay = ValueNotifier(SearchIdle());
+  final _debouncer = Debouncer(milliseconds: 500);
+
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback( (_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       BlocProvider.of<SearchBloc>(context).add(Initialize());
     });
     return Scaffold(
@@ -32,12 +30,6 @@ class ScreenSearch extends StatelessWidget {
           child: Column(
             children: [
               CupertinoSearchTextField(
-                onTap: () {
-                  if (searchTextController.value != null) {
-                    bottomDisplay.value = bottomContents[1];
-                    bottomDisplay.notifyListeners();
-                  }
-                },
                 controller: searchTextController,
                 autofocus: true,
                 decoration: BoxDecoration(
@@ -51,9 +43,15 @@ class ScreenSearch extends StatelessWidget {
                     color: Colors.grey,
                   ),
                 ),
+                
                 onChanged: (value) {
-                  BlocProvider.of<SearchBloc>(context).add(SearchMovie(movieQuery: value));
+                  _debouncer.run(() {
+                    if (value.length >0) 
+                  BlocProvider.of<SearchBloc>(context)
+                      .add(SearchMovie(movieQuery: value));
+                   });
                 },
+                
                 placeholder: 'Search for your favourate movie',
                 style: TextStyle(color: Colors.white),
                 suffixIcon: Icon(
@@ -63,11 +61,14 @@ class ScreenSearch extends StatelessWidget {
               ),
               heightBox,
               Expanded(
-                child: ValueListenableBuilder(
-                    valueListenable: bottomDisplay,
-                    builder: (context, newValue, child) {
-                      return newValue;
-                    }),
+                child: BlocBuilder<SearchBloc, SearchState>(
+                  builder: (context, state) {
+                    if (state.searchResultList.isEmpty) {
+                      return SearchIdle();
+                    }
+                    return SearchResultWidget();
+                  },
+                ),
               )
             ],
           ),
