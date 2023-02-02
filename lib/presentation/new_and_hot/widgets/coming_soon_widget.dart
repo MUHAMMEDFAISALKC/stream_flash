@@ -16,8 +16,8 @@ class CommingSoonWidget extends StatelessWidget {
           width: 20,
         ),
         Container(
-          width: 80,
-          height: 450,
+          width: 40,
+          height: 460,
           //color: Colors.grey.withOpacity(0.2),
           child: Column(
             children: [
@@ -31,8 +31,8 @@ class CommingSoonWidget extends StatelessWidget {
           ),
         ),
         Container(
-          width: screenSize.width - 120,
-          height: 450,
+          width: screenSize.width - 80,
+          height: 460,
           //color: Colors.grey.withOpacity(0.3),
           child: Padding(
             padding: const EdgeInsets.all(10),
@@ -70,7 +70,7 @@ class CommingSoonWidget extends StatelessWidget {
                       'TALLBOY2',
                       style: TextStyle(
                           letterSpacing: -2,
-                          fontSize: 30,
+                          fontSize: 25,
                           fontWeight: FontWeight.bold),
                     ),
                     Row(
@@ -78,7 +78,7 @@ class CommingSoonWidget extends StatelessWidget {
                         CustomButton(
                             icon: Icon(Icons.notifications),
                             title: 'Remind Me'),
-                        widthBox20,
+                        widthBox,
                         CustomButton(
                             icon: Icon(Icons.info_outlined), title: 'Info'),
                         widthBox30,

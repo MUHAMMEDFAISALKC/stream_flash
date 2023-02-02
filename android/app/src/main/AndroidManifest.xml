@@ -1,9 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
-    package="com.example.stream_flash_app">
-    <uses-permission android:name="android.permission.INTERNET" />
+    package="com.example.stream_flash">
    <application
-        android:label="stream_flash_app"
+        android:label="stream_flash"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

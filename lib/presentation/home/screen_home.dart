@@ -61,7 +61,7 @@ class ScreenHome extends StatelessWidget {
                         ),
                         (scrollNotifier.value == true)
                             ? Container(
-                                height: 90,
+                                height: 100,
                                 width: double.infinity,
                                 color: Colors.black.withOpacity(0.5),
                                 child: Column(

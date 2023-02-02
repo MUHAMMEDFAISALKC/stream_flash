@@ -3,8 +3,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stream_flash/application/downloads/download_bloc.dart';
 import 'package:stream_flash/core/constants.dart';
+import 'package:stream_flash/core/strings.dart';
 import 'package:stream_flash/presentation/widgets/app_bar_widget.dart';
+
+import '../../infrastructure/downloads/download_repository.dart';
 
 //final TMDB_API = String.fromEnvironment(TMDB_API);
 
@@ -18,6 +23,7 @@ class ScreenDownloads extends StatelessWidget {
     ),
     Section2(),
     Section3(),
+    
   ];
 
   @override
@@ -70,14 +76,20 @@ class Section1 extends StatelessWidget {
 class Section2 extends StatelessWidget {
   Section2({super.key});
 
+  /*
   List imageLists = [
     'https://www.themoviedb.org/t/p/w440_and_h660_face/ekZobS8isE6mA53RAiGDG93hBxL.jpg', //?api_key=$TMDB_API',
     'https://www.themoviedb.org/t/p/w440_and_h660_face/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg', //?api_key=$TMDB_API',
     'https://www.themoviedb.org/t/p/w440_and_h660_face/mYLOqiStMxDK3fYZFirgrMt8z5d.jpg', //?api_key=$TMDB_API'
   ];
+  */
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<DownloadBloc>(context)
+          .add(DownloadEvent.getDownloadImages());
+    });
     final screanDime = MediaQuery.of(context).size;
     return Column(
       children: [
@@ -96,40 +108,54 @@ class Section2 extends StatelessWidget {
           style: TextStyle(color: Colors.grey, fontSize: 17),
           textAlign: TextAlign.center,
         ),
-        Container(
-          width: screanDime.width,
-          height: screanDime.width - 20,
-          //color: Colors.white,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Center(
-                  child: CircleAvatar(
-                radius: screanDime.width * 0.4,
-                //maxRadius: 200,
-                backgroundColor: Color.fromARGB(115, 134, 130, 130),
-              )),
-              DownloadImagesWidget(
-                margin: EdgeInsets.only(left: 170),
-                rotationDegree: 18,
-                screanDime: screanDime,
-                imageList: imageLists[0],
-                imHeight: (screanDime.width * 0.52),
-              ),
-              DownloadImagesWidget(
-                  margin: EdgeInsets.only(right: 170),
-                  imHeight: (screanDime.width * 0.52),
-                  rotationDegree: -18,
-                  screanDime: screanDime,
-                  imageList: imageLists[2]),
-              DownloadImagesWidget(
-                  radiusBorder: 60,
-                  margin: EdgeInsets.only(top: 40),
-                  imHeight: (screanDime.width * 0.8),
-                  screanDime: screanDime,
-                  imageList: imageLists[1]),
-            ],
-          ),
+        BlocBuilder<DownloadBloc, DownloadState>(
+          builder: (context, state) {
+            return Container(
+              width: screanDime.width,
+              height: screanDime.width - 20,
+
+              //color: Colors.white,
+
+              child: 
+              
+              (state.isLoading)
+                  ? CircularProgressIndicator()
+                  : (state.downloads!.isNotEmpty) ? 
+                  Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Center(
+                            child: CircleAvatar(
+                          radius: screanDime.width * 0.4,
+                          //maxRadius: 200,
+                          backgroundColor: Color.fromARGB(115, 134, 130, 130),
+                        )),
+                        DownloadImagesWidget(
+                          margin: EdgeInsets.only(left: 170),
+                          rotationDegree: 18,
+                          screanDime: screanDime,
+                          imageList:
+                              '${imageAppendUrl}${state.downloads![0].posterPath}',
+                          imHeight: (screanDime.width * 0.52),
+                        ),
+                        DownloadImagesWidget(
+                            margin: EdgeInsets.only(right: 170),
+                            imHeight: (screanDime.width * 0.52),
+                            rotationDegree: -18,
+                            screanDime: screanDime,
+                            imageList:
+                                '${imageAppendUrl}${state.downloads![1].posterPath}'),
+                        DownloadImagesWidget(
+                            radiusBorder: 60,
+                            margin: EdgeInsets.only(top: 40),
+                            imHeight: (screanDime.width * 0.8),
+                            screanDime: screanDime,
+                            imageList:
+                                '${imageAppendUrl}${state.downloads![2].posterPath}'),
+                      ],
+                    ): CircularProgressIndicator(),
+            );
+          },
         ),
       ],
     );

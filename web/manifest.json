@@ -1,6 +1,6 @@
 {
-    "name": "stream_flash_app",
-    "short_name": "stream_flash_app",
+    "name": "stream_flash",
+    "short_name": "stream_flash",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

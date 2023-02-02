@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stream_flash/application/downloads/download_bloc.dart';
+import 'package:stream_flash/application/search/search_bloc.dart';
 import 'package:stream_flash/core/colors/colors.dart';
+import 'package:stream_flash/domain/core/di/injectable.dart';
 import 'package:stream_flash/presentation/downloads/screen_downloads.dart';
 import 'package:stream_flash/presentation/fast_laughs/screen_fastlaughs.dart';
 import 'package:stream_flash/presentation/main_page/screen_main_page.dart';
 import 'package:stream_flash/presentation/main_page/widgets/bottom_nav.dart';
 import 'package:stream_flash/presentation/new_and_hot/screen_newandhot.dart';
 import 'package:stream_flash/presentation/search/screen_search.dart';
-import 'package:stream_flash/streamflashbloc/streamflash_bloc.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureInjection();
   runApp(const MyApp());
 }
 
@@ -19,8 +23,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => StreamflashBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (ctx) => getIt<DownloadBloc>()),
+        BlocProvider(create: (ctx) => getIt<SearchBloc>()),
+      ],
       child: MaterialApp(
         title: 'Stream Flash',
         theme: ThemeData(
